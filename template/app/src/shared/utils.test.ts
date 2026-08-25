@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { isAdminEmail, assertUnreachable, throttleWithTrailingInvocation } from './utils';
+import { isAdminEmail, assertUnreachable, throttleWithTrailingInvocation, isValidEmail } from './utils';
 
 describe('Shared Utilities', () => {
   describe('isAdminEmail', () => {
@@ -62,6 +62,28 @@ describe('Shared Utilities', () => {
       throttled.cancel();
       throttled();
       expect(callCount).toBe(2);
+    });
+  });
+
+  describe('isValidEmail', () => {
+    it('should return true for valid email formats', () => {
+      expect(isValidEmail('test@example.com')).toBe(true);
+      expect(isValidEmail('user.name+tag@sub.domain.co')).toBe(true);
+    });
+
+    it('should return false for invalid email formats', () => {
+      expect(isValidEmail('plainaddress')).toBe(false);
+      expect(isValidEmail('@@missing-username.com')).toBe(false);
+      expect(isValidEmail('username@.com')).toBe(false);
+      expect(isValidEmail('username@missingtld')).toBe(false);
+    });
+
+    it('should handle whitespaces', () => {
+      expect(isValidEmail('  test@example.com  ')).toBe(true);
+    });
+
+    it('should return false on empty inputs', () => {
+      expect(isValidEmail('')).toBe(false);
     });
   });
 });

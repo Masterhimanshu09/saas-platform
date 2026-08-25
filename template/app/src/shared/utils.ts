@@ -74,3 +74,13 @@ export function isAdminEmail(email: string, adminEmailsStr: string): boolean {
   return adminEmails.includes(email.trim().toLowerCase());
 }
 
+/**
+ * Validates whether an email matches a basic standard email format.
+ */
+export function isValidEmail(email: string): boolean {
+  if (!email) return false;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email.trim());
+}
+
+
