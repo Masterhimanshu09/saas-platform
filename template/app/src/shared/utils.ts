@@ -63,3 +63,13 @@ export function throttleWithTrailingInvocation(
 
   return throttledFn as typeof throttledFn & { cancel: () => void };
 }
+
+/**
+ * Checks if an email address is listed in the admin emails string.
+ */
+export function isAdminEmail(email: string, adminEmailsStr: string): boolean {
+  if (!email || !adminEmailsStr) return false;
+  const adminEmails = adminEmailsStr.split(',').map((e) => e.trim().toLowerCase());
+  return adminEmails.includes(email.trim().toLowerCase());
+}
+
