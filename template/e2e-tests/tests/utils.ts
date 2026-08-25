@@ -7,7 +7,7 @@ export type User = {
   password?: string;
 };
 
-const DEFAULT_PASSWORD = "password123";
+const DEFAULT_PASSWORD = process.env.E2E_TEST_PASSWORD ?? randomUUID();
 
 export const logUserIn = async ({ page, user }: { page: Page; user: User }) => {
   await page.goto("/login", { waitUntil: "domcontentloaded" });

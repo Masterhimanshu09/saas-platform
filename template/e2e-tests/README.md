@@ -67,3 +67,9 @@ You can copy and paste the `.github/` directory containing the `e2e-tests.yml` w
 In order for these tests to run correctly on GitHub, you need to provide the environment variables mentioned in the `e2e-tests.yml` file within your GitHub repository's "Actions" secrets so that they can be accessed by the tests.
 
 Upon pushing to the repository's main branch, or creating a PR against the main branch, the tests will run in the CI/CD pipeline.
+
+## Environment Variables
+
+The E2E test suite supports the following environment variables:
+- `E2E_TEST_PASSWORD`: (Optional) Specifies the password to use for test users. If not provided, a random UUID will be generated automatically for each run.
+
