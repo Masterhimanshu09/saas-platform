@@ -139,6 +139,13 @@ Both Prettier and ESLint checks are automatically run in CI/CD pipelines to ensu
 
 For information about other development tools used to maintain derived projects (like opensaas.sh and template-test), see [tools/README.md](./tools/README.md).
 
+## Configuration Options
+
+- **Admin Privileges**: Configure admin accounts by setting the `ADMIN_EMAILS` environment variable as a comma-separated list in your server environment:
+  ```env
+  ADMIN_EMAILS=admin@example.com,manager@example.com
+  ```
+
 ## Contributing
 
 Note that we've tried to get as many of the core features of a SaaS app into this template as possible, but there still might be some missing features or functionality.
