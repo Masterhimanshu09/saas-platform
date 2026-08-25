@@ -59,6 +59,7 @@ export function throttleWithTrailingInvocation(
       trailingInvocationTimeoutId = null;
     }
     isTrailingInvocationPending = false;
+    fnLastCallTime = null;
   };
 
   return throttledFn as typeof throttledFn & { cancel: () => void };

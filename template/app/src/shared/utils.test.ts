@@ -50,5 +50,18 @@ describe('Shared Utilities', () => {
       throttled.cancel();
       vi.useRealTimers();
     });
+
+    it('should execute immediately on next call if cancelled', () => {
+      let callCount = 0;
+      const fn = () => { callCount++; };
+      const throttled = throttleWithTrailingInvocation(fn, 100);
+
+      throttled();
+      expect(callCount).toBe(1);
+
+      throttled.cancel();
+      throttled();
+      expect(callCount).toBe(2);
+    });
   });
 });
