@@ -7,4 +7,8 @@ node_modules/
 # We want to keep the template clean from the usual build artifacts.
 # We also don't want to ship these ignore rules to the users.
 template/app/migrations
-template/app/package-lock.json
+
+# Stray environment diffs
+*.env.vault.diff
+*.env.client.diff
+

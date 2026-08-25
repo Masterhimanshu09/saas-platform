@@ -5,7 +5,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier:check": "prettier --ignore-unknown --check --config prettier.config.ts .",
-    "prettier:format": "prettier --ignore-unknown --write --config prettier.config.ts ."
+    "prettier:format": "prettier --ignore-unknown --write --config prettier.config.ts .",
+    "test": "npm run test --prefix template/app"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
