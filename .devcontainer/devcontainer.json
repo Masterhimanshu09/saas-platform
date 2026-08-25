@@ -1,0 +1,13 @@
+{
+  "name": "Open SaaS Development",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "wasp-lang.wasp"
+      ]
+    }
+  }
+}

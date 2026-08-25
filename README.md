@@ -51,7 +51,25 @@ You also get access to Wasp's diverse, helpful community if you get stuck or nee
 
 ## Getting Started
 
-### Simple Instructions
+### Zero-Account Setup with Docker Compose (Recommended)
+
+You can run the application in a fully reproducible environment without setting up external accounts (like Stripe or OpenAI) using Docker Compose.
+
+First, ensure you have [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/) installed.
+
+Then, from the root of the repository, run:
+
+```bash
+docker compose up --build
+```
+
+This will automatically start:
+- A PostgreSQL database instance
+- The Wasp development server running the client (on port 3000) and backend (on port 3001)
+
+You can then access the application at `http://localhost:3000`.
+
+### Simple Manual Instructions
 
 First, to install the latest version of [Wasp](https://wasp.sh/) on macOS, Linux, or Windows with WSL, run the following command:
 

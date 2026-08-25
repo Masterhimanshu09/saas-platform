@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: opensaas
+      POSTGRES_USER: wasp
+      POSTGRES_PASSWORD: password123
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build:
+      context: ./template/app
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+    environment:
+      - DATABASE_URL=postgresql://wasp:password123@db:5432/opensaas
+      - SKIP_EMAIL_VERIFICATION_IN_DEV=true
+      - OPENAI_API_KEY=mock-openai-key
+      - LEMONSQUEEZY_WEBHOOK_SECRET=mock-lemonsqueezy-secret
+      - STRIPE_API_KEY=mock-stripe-key
+      - STRIPE_WEBHOOK_SECRET=mock-stripe-webhook-secret
+      - PAYMENTS_HOBBY_SUBSCRIPTION_PLAN_ID=mock-hobby-id
+      - PAYMENTS_PRO_SUBSCRIPTION_PLAN_ID=mock-pro-id
+      - PAYMENTS_CREDITS_10_PLAN_ID=mock-credits-id
+      - PORT=3001
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
