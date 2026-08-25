@@ -76,6 +76,7 @@ describe('Shared Utilities', () => {
       expect(isValidEmail('@@missing-username.com')).toBe(false);
       expect(isValidEmail('username@.com')).toBe(false);
       expect(isValidEmail('username@missingtld')).toBe(false);
+      expect(isValidEmail('username@server.c')).toBe(false);
     });
 
     it('should handle whitespaces', () => {

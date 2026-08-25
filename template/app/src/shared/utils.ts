@@ -79,7 +79,7 @@ export function isAdminEmail(email: string, adminEmailsStr: string): boolean {
  */
 export function isValidEmail(email: string): boolean {
   if (!email) return false;
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   return emailRegex.test(email.trim());
 }
 
