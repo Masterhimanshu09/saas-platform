@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { isAdminEmail } from './utils';
+import { describe, it, expect, vi } from 'vitest';
+import { isAdminEmail, assertUnreachable, throttleWithTrailingInvocation } from './utils';
 
 describe('Shared Utilities', () => {
   describe('isAdminEmail', () => {
@@ -22,6 +22,33 @@ describe('Shared Utilities', () => {
     it('should return false on empty inputs', () => {
       expect(isAdminEmail('', 'admin@test.com')).toBe(false);
       expect(isAdminEmail('admin@test.com', '')).toBe(false);
+    });
+  });
+
+  describe('assertUnreachable', () => {
+    it('should throw an error saying the code should be unreachable', () => {
+      expect(() => assertUnreachable(null as any)).toThrowError('This code should be unreachable');
+    });
+  });
+
+  describe('throttleWithTrailingInvocation', () => {
+    it('should throttle function calls', () => {
+      vi.useFakeTimers();
+      let callCount = 0;
+      const fn = () => { callCount++; };
+      const throttled = throttleWithTrailingInvocation(fn, 100);
+
+      throttled();
+      throttled();
+      throttled();
+
+      expect(callCount).toBe(1);
+
+      vi.advanceTimersByTime(100);
+      expect(callCount).toBe(2);
+
+      throttled.cancel();
+      vi.useRealTimers();
     });
   });
 });
