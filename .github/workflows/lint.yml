@@ -1,4 +1,4 @@
-name: Lint
+name: CI/CD Pipeline
 
 on:
   push:
@@ -46,3 +46,69 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint
+
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install app dependencies
+        run: cd template/app && npm install
+
+      - name: Run typecheck
+        run: cd template/app && npx tsc --noEmit
+
+  audit:
+    name: Dependency Audit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+
+      - name: Audit root dependencies
+        run: npm audit --audit-level=high
+
+      - name: Audit app dependencies
+        run: cd template/app && npm audit --audit-level=high
+
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install app dependencies
+        run: cd template/app && npm install
+
+      - name: Run tests
+        run: npm test
